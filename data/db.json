@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title" : "Create new homepage banner",
+      "details": "Details",
+      "complete": true
+    },
+    {
+      "id": 2,
+      "title": "Make aimlab page",
+      "details": "create web site like aimlab",
+      "complete": false
+    }
+  ]
+}
