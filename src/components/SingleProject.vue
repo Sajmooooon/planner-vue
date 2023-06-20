@@ -5,7 +5,7 @@
       <div class="icons">
         <span class="material-symbols-outlined">done</span>
         <span class="material-symbols-outlined">edit</span>
-        <span class="material-symbols-outlined">delete</span>
+        <span @click="deleteProject" class="material-symbols-outlined">delete</span>
       </div>
     </div>
     <div v-if="showDetail" class="detail">
@@ -20,12 +20,18 @@ export default {
   props: ["project"],
   data(){
     return{
-      showDetail: false
+      showDetail: false,
+      uri: "http://localhost:3000/projects/" + this.project.id
     }
   },
   methods: {
     toggleDetail(){
       this.showDetail = !this.showDetail
+    },
+    deleteProject(){
+      fetch(this.uri, {method: "DELETE"})
+          .then(() => this.$emit('delete',this.project.id))
+          .catch(err => console.log(err.message))
     }
   }
 }

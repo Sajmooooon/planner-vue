@@ -2,7 +2,7 @@
   <div class="home">
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
-        <SingleProject :project="project"></SingleProject>
+        <SingleProject :project="project" @delete="handleDelete"></SingleProject>
       </div>
     </div>
     <div v-else>
@@ -21,6 +21,11 @@ export default {
   data(){
     return{
       projects: [],
+    }
+  },
+  methods: {
+    handleDelete(id){
+      this.projects = this.projects.filter(project => project.id!==id)
     }
   },
   mounted() {
