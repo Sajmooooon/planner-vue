@@ -1,6 +1,14 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <div v-if="projects.length">
+      <div v-for="project in projects" :key="project.id">
+        <h2>{{project.title}}</h2>
+        <p>{{projects.details}}</p>
+      </div>
+    </div>
+    <div v-else>
+      Loading data...
+    </div>
   </div>
 </template>
 
@@ -9,5 +17,17 @@
 
 export default {
   name: 'HomeView',
+  components: {},
+  data(){
+    return{
+      projects: []
+    }
+  },
+  mounted() {
+    fetch('http://localhost:3000/projects')
+        .then(res=>res.json())
+        .then(data=>this.projects = data)
+        .catch(err=>console.log(err.message))
+  }
 }
 </script>
