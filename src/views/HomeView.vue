@@ -2,8 +2,7 @@
   <div class="home">
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
-        <h2>{{project.title}}</h2>
-        <p>{{projects.details}}</p>
+        <SingleProject :project="project"></SingleProject>
       </div>
     </div>
     <div v-else>
@@ -15,12 +14,13 @@
 <script>
 
 
+import SingleProject from "@/components/SingleProject";
 export default {
   name: 'HomeView',
-  components: {},
+  components: {SingleProject},
   data(){
     return{
-      projects: []
+      projects: [],
     }
   },
   mounted() {
