@@ -1,9 +1,9 @@
 <template>
-  <div class="project">
+  <div class="project" :class="{complete : project.complete}">
     <div class="actions">
       <h3 @click="toggleDetail">{{project.title}}</h3>
       <div class="icons">
-        <span class="material-symbols-outlined">done</span>
+        <span @click="toggleComplete" class="material-symbols-outlined tick">done</span>
         <span class="material-symbols-outlined">edit</span>
         <span @click="deleteProject" class="material-symbols-outlined">delete</span>
       </div>
@@ -32,6 +32,15 @@ export default {
       fetch(this.uri, {method: "DELETE"})
           .then(() => this.$emit('delete',this.project.id))
           .catch(err => console.log(err.message))
+    },
+    toggleComplete(){
+      fetch(this.uri, {
+        method: "PATCH",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({complete: !this.project.complete})
+      })
+          .then(() => this.$emit("complete", this.project.id))
+          .catch(err => console.log(err.message))
     }
   }
 }
@@ -46,6 +55,12 @@ export default {
   box-shadow: 1px 2px 2px rgba(0,0,0,0.5);
   border-left: 4px solid #e90074;
 }
+.project.complete{
+  border-left: 4px solid forestgreen;
+}
+.project.complete .tick{
+  color: forestgreen;
+}
 h3{
   cursor: pointer;
 }
@@ -56,6 +71,7 @@ h3{
   align-items: center;
 }
 .material-symbols-outlined{
+  font-weight: bold;
   margin-left: 10px;
   color: #bbb;
   cursor: pointer;
