@@ -1,4 +1,5 @@
 <template>
+  <NavBar></NavBar>
   <router-view/>
 </template>
 
@@ -18,3 +19,12 @@ body{
 
 
 </style>
+<script>
+import NavBar from "@/components/NavBar";
+
+export default {
+  components: {
+    NavBar
+  }
+}
+</script>
